@@ -24,7 +24,6 @@
 // Import functions from this week's arrays homework.
 const { addUpArrayElements } = require('./src/arrays-03');
 
-
 // Read command-line arguments (skipping "node" and the script path). Put the rest into an args array
 const args = process.argv.slice(2);
 
@@ -35,7 +34,6 @@ const transactions = args.map(function (arg) {
 }).filter(function (num) {
   return !isNaN(num);
 });
-
 
 if (transactions.length === 0) {
   console.error("Usage: node financialCalculator.js <transaction1> <transaction2> ...");
@@ -50,6 +48,12 @@ if (transactions.length === 0) {
 // - totalExpenses: Sum of all negative transactions.
 // - netBalance: Total of totalIncome and totalExpenses.
 
+const totalTransactions = transactions.length;
+const totalSum = addUpArrayElements(transactions);
+const averageTransaction = totalTransactions > 0 ? (totalSum / totalTransactions).toFixed(2) : 0;
+const totalIncome = transactions.filter(num => num > 0).reduce((sum, num) => sum + num, 0);
+const totalExpenses = transactions.filter(num => num < 0).reduce((sum, num) => sum + num, 0);
+const netBalance = totalIncome + totalExpenses;
 
 // Create an array of fun fact rows. Each row is a two-element array: [Fact, Value].
 const funFacts = [
